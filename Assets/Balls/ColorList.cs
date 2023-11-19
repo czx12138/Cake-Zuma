@@ -2,13 +2,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ColorList1 : MonoBehaviour
+public class ColorList : MonoBehaviour
 {
 
-    private List<Color> defaultColors = new List<Color>();
     public List<Color> randColor = new List<Color>();
+    private List<Color> defaultColors = new List<Color>();
 
-    void Awake()
+    public void Awake()
     {
         defaultColors.Add(Color.red);
         defaultColors.Add(Color.blue);
@@ -20,9 +20,9 @@ public class ColorList1 : MonoBehaviour
         }
     }
 
-    void Update()
+    public void Update()
     {
-        if(randColor.Count < 10) 
+        if (randColor.Count < 10) 
         {
             int a = Random.Range(0, 3);
             randColor.Add(defaultColors[a]);

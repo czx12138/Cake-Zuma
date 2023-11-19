@@ -2,9 +2,9 @@ using Mono.Cecil;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-public class ball3 : MonoBehaviour
+public class Ball : MonoBehaviour
 {
-    public ColorList1 colorList;
+    public ColorList colorList;
     public TimerBoard timerBoard;
     #region Color change
     private Color ballsColor;//level 1 balls color

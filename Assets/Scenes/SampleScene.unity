@@ -147,7 +147,7 @@ GameObject:
   - component: {fileID: 37974083}
   - component: {fileID: 37974082}
   - component: {fileID: 37974081}
-  - component: {fileID: 37974086}
+  - component: {fileID: 37974087}
   m_Layer: 3
   m_Name: ball2
   m_TagString: Untagged
@@ -273,7 +273,7 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &37974086
+--- !u!114 &37974087
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -282,10 +282,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 37974080}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a7abffecaa5aae447bedf00930c143be, type: 3}
+  m_Script: {fileID: 11500000, guid: dc1e140dfe003a84ebeb160dacd704e4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  colorList: {fileID: 2043595425}
+  colorList: {fileID: 2043595427}
   timerBoard: {fileID: 1558668362369984944}
 --- !u!1 &151155574
 GameObject:
@@ -429,10 +429,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 163363105}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6d9794c8792c2c847a3dd7d66ac6f288, type: 3}
+  m_Script: {fileID: 11500000, guid: 1e06cd409219749a19a38c038205e2f8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   balls: {fileID: 37974080}
+  key: 273
   shootCooldown: 0.3
 --- !u!1 &172911111
 GameObject:
@@ -443,7 +444,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 172911113}
-  - component: {fileID: 172911112}
+  - component: {fileID: 172911114}
   m_Layer: 0
   m_Name: shoot1
   m_TagString: Untagged
@@ -451,20 +452,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &172911112
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 172911111}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 95da4bb59ead46543b7bb19c97f36ab2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  balls: {fileID: 1083103977}
-  shootCooldown: 0.3
 --- !u!4 &172911113
 Transform:
   m_ObjectHideFlags: 0
@@ -480,6 +467,21 @@ Transform:
   m_Father: {fileID: 1025195793}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &172911114
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 172911111}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1e06cd409219749a19a38c038205e2f8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  balls: {fileID: 1083103977}
+  key: 119
+  shootCooldown: 0.3
 --- !u!114 &294504717 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 3504343953035011416, guid: 158933ca4d58c004ca1abe9ed3b0612f, type: 3}
@@ -584,7 +586,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 377564468}
-  - component: {fileID: 377564467}
+  - component: {fileID: 377564469}
   m_Layer: 0
   m_Name: ColorList1
   m_TagString: Untagged
@@ -592,19 +594,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &377564467
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 377564466}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a11b69e3e287e1146a59c1b9125fa790, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  randColor: []
 --- !u!4 &377564468
 Transform:
   m_ObjectHideFlags: 0
@@ -620,6 +609,19 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 10
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &377564469
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 377564466}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b76694230912b4d40b31ddaead269f9a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  randColor: []
 --- !u!1 &519420028
 GameObject:
   m_ObjectHideFlags: 0
@@ -765,7 +767,7 @@ GameObject:
   - component: {fileID: 1025195792}
   - component: {fileID: 1025195795}
   - component: {fileID: 1025195796}
-  - component: {fileID: 1025195798}
+  - component: {fileID: 1025195797}
   m_Layer: 6
   m_Name: player 1
   m_TagString: Untagged
@@ -888,7 +890,7 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 1
   m_Constraints: 0
---- !u!114 &1025195798
+--- !u!114 &1025195797
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -897,10 +899,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 1025195790}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a001308bc2a9c6b4796e14ec6a58db09, type: 3}
+  m_Script: {fileID: 11500000, guid: 9d2731a390d354fa0bf51f597bc03c84, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  colorList: {fileID: 377564467}
+  moveLeftKey: 97
+  moveRightKey: 100
+  colorList: {fileID: 377564469}
 --- !u!1 &1083103977
 GameObject:
   m_ObjectHideFlags: 0
@@ -1052,7 +1056,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dc1e140dfe003a84ebeb160dacd704e4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  colorList: {fileID: 377564467}
+  colorList: {fileID: 377564469}
   timerBoard: {fileID: 1558668362369984944}
 --- !u!1 &1183857012
 GameObject:
@@ -1235,7 +1239,7 @@ GameObject:
   - component: {fileID: 1561350046}
   - component: {fileID: 1561350045}
   - component: {fileID: 1561350044}
-  - component: {fileID: 1561350043}
+  - component: {fileID: 1561350048}
   m_Layer: 6
   m_Name: player 2
   m_TagString: Untagged
@@ -1243,19 +1247,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &1561350043
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1561350042}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fd139ff73c7c92c4882e9d419bd92ccc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  colorList: {fileID: 2043595425}
 --- !u!50 &1561350044
 Rigidbody2D:
   serializedVersion: 4
@@ -1371,6 +1362,21 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: -180}
+--- !u!114 &1561350048
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1561350042}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9d2731a390d354fa0bf51f597bc03c84, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  moveLeftKey: 276
+  moveRightKey: 275
+  colorList: {fileID: 2043595427}
 --- !u!1 &2043595424
 GameObject:
   m_ObjectHideFlags: 0
@@ -1380,7 +1386,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2043595426}
-  - component: {fileID: 2043595425}
+  - component: {fileID: 2043595427}
   m_Layer: 0
   m_Name: ColorList2
   m_TagString: Untagged
@@ -1388,7 +1394,22 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &2043595425
+--- !u!4 &2043595426
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2043595424}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0.11180167, y: -0.6733448, z: -329.28583}
+  m_LocalScale: {x: 0.99999994, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 11
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2043595427
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1397,25 +1418,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 2043595424}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 667cd4cd09867b145ad2441322d7682f, type: 3}
+  m_Script: {fileID: 11500000, guid: b76694230912b4d40b31ddaead269f9a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   randColor: []
---- !u!4 &2043595426
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2043595424}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.11180168, y: -0.6733448, z: -329.28583}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 11
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1558668362369984943
 PrefabInstance:
   m_ObjectHideFlags: 0
