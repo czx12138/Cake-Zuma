@@ -4,199 +4,107 @@ using System.Collections.Generic;
 using UnityEngine;
 public class Ball : MonoBehaviour
 {
+    public Color ballColor;
     public ColorList colorList;
     public TimerBoard timerBoard;
-    #region Color change
-    private Color ballsColor;//level 1 balls color
-    private Color collisionColor1;//Enter collision
-    private Color collisionColor2;//Exit collision
-    #endregion
-    #region level
-    Dictionary<Color, Color> colorUpgrade = new Dictionary<Color, Color>();
-    private int level = 1;
-    private List<Color> secondLevelColor = new List<Color>();
-    #endregion
-    #region level2 Color
+
+    private Dictionary<Color, List<Ball>> ballsInCollision = new Dictionary<Color, List<Ball>>();
+    private Dictionary<Color, Color> colorTransition = new Dictionary<Color, Color>();
+
     private Color purple = new Color(0.9333333f, 0.08235291f, 0.717019f);
-    private Color green = Color.green;
     private Color orange = new Color(0.9622642f, 0.4807624f, 0.02178708f);
-    private Color black = Color.black;
-    #endregion
+
     public void Start()
     {
-        produceColorBall();
-        setLevelColor();
+        changeBallColor(colorList.getNUpdateNextBallColor());
+
+        colorTransition[Color.red] = purple;
+        colorTransition[Color.blue] = Color.green;
+        colorTransition[Color.yellow] = orange;
+        colorTransition[purple] = Color.black;
+        colorTransition[Color.green] = Color.black;
+        colorTransition[orange] = Color.black;
+
+        ballsInCollision[Color.red] = new List<Ball>();
+        ballsInCollision[Color.yellow] = new List<Ball>();
+        ballsInCollision[Color.blue] = new List<Ball>();
+        ballsInCollision[purple] = new List<Ball>();
+        ballsInCollision[orange] = new List<Ball>();
+        ballsInCollision[Color.green] = new List<Ball>();
+        ballsInCollision[Color.black] = new List<Ball>();
     }
+
     public void Update()
     {
-        if (recordBalls.Count == 2)
-        {
-            destory(level);
-            levelChange();
+        checkCollidingBalls();
+    }
+
+    private void checkCollidingBalls() 
+    {
+        // There's gotta be a way to make this simpler and scalable but whatever
+        if (ballColor == Color.red || ballColor == Color.yellow || ballColor == Color.blue) {
+            if (ballsInCollision[ballColor].Count >= 2) {
+                Destroy(ballsInCollision[ballColor][0].gameObject);
+                Destroy(ballsInCollision[ballColor][0].gameObject);
+                changeBallColor(colorTransition[ballColor]);
+                timerBoard.UpdateScore(1);
+            }
+        } else if (ballColor == purple || ballColor == Color.green || ballColor == orange) {
+            if (
+                ballColor == purple
+                && ballsInCollision[Color.green].Count > 0
+                && ballsInCollision[orange].Count > 0
+            ) {
+                Destroy(ballsInCollision[Color.green][0].gameObject);
+                Destroy(ballsInCollision[orange][0].gameObject);
+                changeBallColor(colorTransition[ballColor]);
+                timerBoard.UpdateScore(3);
+            } else if (
+                ballColor == Color.green
+                && ballsInCollision[purple].Count > 0
+                && ballsInCollision[orange].Count > 0
+            ) {
+                Destroy(ballsInCollision[purple][0].gameObject);
+                Destroy(ballsInCollision[orange][0].gameObject);
+                changeBallColor(colorTransition[ballColor]);
+                timerBoard.UpdateScore(3);
+            } else if (
+                ballColor == orange
+                && ballsInCollision[purple].Count > 0
+                && ballsInCollision[Color.green].Count > 0
+            ) {
+                Destroy(ballsInCollision[purple][0].gameObject);
+                Destroy(ballsInCollision[Color.green][0].gameObject);
+                changeBallColor(colorTransition[ballColor]);
+                timerBoard.UpdateScore(3);
+            }
+        } else if (ballColor == Color.black && ballsInCollision[Color.black].Count >= 2) {
+            Destroy(ballsInCollision[Color.black][0].gameObject);
+            Destroy(ballsInCollision[Color.black][0].gameObject);
+            timerBoard.UpdateScore(5);
+            Destroy(gameObject);
         }
     }
-    private void produceColorBall()
+
+    private void changeBallColor(Color newBallColor)
     {
-        ballsColor = colorList.randColor[0];
-        colorList.randColor.RemoveAt(0);
-        GetComponent<SpriteRenderer>().color = ballsColor;
+        ballColor = newBallColor;
+        GetComponent<SpriteRenderer>().color = ballColor;
     }
-    private void setLevelColor()
-    {
-        colorUpgrade.Add(Color.red, purple);
-        colorUpgrade.Add(Color.yellow, orange);
-        colorUpgrade.Add(Color.blue, green);
-        colorUpgrade.Add(purple, black);
-        colorUpgrade.Add(orange, black);
-        colorUpgrade.Add(green, black);
-        secondLevelColor.Add(orange);
-        secondLevelColor.Add(green);
-        secondLevelColor.Add(purple);
-    }
-    private void levelChange()
-    {
-        if (ballsColor == purple || ballsColor == green || ballsColor == orange)
-            level = 2;
-        if (ballsColor == black)
-            level = 3;
-    }
-    #region Collision
-    private List<GameObject> recordBalls = new List<GameObject>();
-    private List<Color> levelTwoCollisionBalls = new List<Color>();
 
     void OnCollisionEnter2D(Collision2D collisionInfo)
     {
-        collisionColor1 = collisionInfo.gameObject.GetComponent<SpriteRenderer>().color;
-        if (collisionColor1 == ballsColor && !secondLevelColor.Contains(ballsColor))
-        {
-            recordBalls.Add(collisionInfo.gameObject);
-        }
-        if (collisionColor1 != ballsColor && secondLevelColor.Contains(ballsColor) && secondLevelColor.Contains(collisionColor1) && !levelTwoCollisionBalls.Contains(collisionColor1))
-        {
-            SecondLevelBallCheck1(collisionInfo);
+        Ball otherBall = collisionInfo.gameObject.GetComponent<Ball>();
+        if (otherBall != null) {
+            ballsInCollision[otherBall.ballColor].Add(otherBall);
         }
     }
+
     void OnCollisionExit2D(Collision2D collisionInfo)
     {
-        collisionColor2 = collisionInfo.gameObject.GetComponent<SpriteRenderer>().color;
-        if (collisionColor2 == ballsColor && !secondLevelColor.Contains(ballsColor))
-        {
-            recordBalls.Remove(collisionInfo.gameObject);
-        }
-        if (collisionColor2 != ballsColor && secondLevelColor.Contains(ballsColor) && secondLevelColor.Contains(collisionColor2) && levelTwoCollisionBalls.Contains(collisionColor2))
-        {
-            SecondLevelBallCheck2(collisionInfo);
-        }
-    }
-    #endregion
-    private void SecondLevelBallCheck1(Collision2D collisionInfo)
-    {
-        if (ballsColor == orange)
-        {
-            if (collisionColor1 == green)
-            {
-                levelTwoCollisionBalls.Add(green);
-                recordBalls.Add(collisionInfo.gameObject);
-            }
-            if (collisionColor1 == purple)
-            {
-                levelTwoCollisionBalls.Add(purple);
-                recordBalls.Add(collisionInfo.gameObject);
-            }
-        }
-        if (ballsColor == green)
-        {
-            if (collisionColor1 == orange)
-            {
-                levelTwoCollisionBalls.Add(orange);
-                recordBalls.Add(collisionInfo.gameObject);
-            }
-            if (collisionColor1 == purple)
-            {
-                levelTwoCollisionBalls.Add(purple);
-                recordBalls.Add(collisionInfo.gameObject);
-            }
-        }
-        if (ballsColor == purple)
-        {
-            if (collisionColor1 == green)
-            {
-                levelTwoCollisionBalls.Add(green);
-                recordBalls.Add(collisionInfo.gameObject);
-            }
-            if (collisionColor1 == orange)
-            {
-                levelTwoCollisionBalls.Add(orange);
-                recordBalls.Add(collisionInfo.gameObject);
-            }
-        }
-    }
-    private void SecondLevelBallCheck2(Collision2D collisionInfo)
-    {
-        if (ballsColor == orange)
-        {
-            if (collisionColor2 == green)
-            {
-                levelTwoCollisionBalls.Remove(green);
-                recordBalls.Remove(collisionInfo.gameObject);
-            }
-            if (collisionColor2 == purple)
-            {
-                levelTwoCollisionBalls.Remove(purple);
-                recordBalls.Remove(collisionInfo.gameObject);
-            }
-        }
-        if (ballsColor == green)
-        {
-            if (collisionColor2 == orange)
-            {
-                levelTwoCollisionBalls.Remove(orange);
-                recordBalls.Remove(collisionInfo.gameObject);
-            }
-            if (collisionColor2 == purple)
-            {
-                levelTwoCollisionBalls.Remove(purple);
-                recordBalls.Remove(collisionInfo.gameObject);
-            }
-        }
-        if (ballsColor == purple)
-        {
-            if (collisionColor2 == green)
-            {
-                levelTwoCollisionBalls.Remove(green);
-                recordBalls.Remove(collisionInfo.gameObject);
-            }
-            if (collisionColor2 == orange)
-            {
-                levelTwoCollisionBalls.Remove(orange);
-                recordBalls.Remove(collisionInfo.gameObject);
-            }
-        }
-    }
-    private void destory(int level)
-    {
-        if (level == 1)
-        {
-            Destroy(recordBalls[0]);
-            Destroy(recordBalls[0]);
-            ballsColor = colorUpgrade[ballsColor];
-            GetComponent<SpriteRenderer>().color = ballsColor;
-            timerBoard.UpdateScore(1);
-        }
-        if (level == 2)
-        {
-            Destroy(recordBalls[0]);
-            Destroy(recordBalls[0]);
-            ballsColor = colorUpgrade[ballsColor];
-            GetComponent<SpriteRenderer>().color = ballsColor;
-            timerBoard.UpdateScore(3);
-        }
-        if (level == 3)
-        {
-            Destroy(recordBalls[0]);
-            Destroy(recordBalls[0]);
-            Destroy(gameObject);
-            timerBoard.UpdateScore(10);
+        Ball otherBall = collisionInfo.gameObject.GetComponent<Ball>();
+        if (otherBall != null) {
+            ballsInCollision[otherBall.ballColor].Remove(otherBall);
         }
     }
 }
